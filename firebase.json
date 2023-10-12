@@ -2,7 +2,7 @@
   "hosting": [
     {
       "site": "alt-text-api",
-      "public": "frontend",
+      "public": "frontend/build",
       "ignore": [
         "firebase.json",
         "**/.*",
