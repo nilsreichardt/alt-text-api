@@ -27,9 +27,12 @@
     "test:watch": "NODE_ENV=development yarn jest --watch --notify --notifyMode=change --coverage"
   },
   "dependencies": {
+    "@google-cloud/vision": "^4.0.2",
     "@sentry/integrations": "^5.15.5",
     "@sentry/node": "^5.12.3",
-    "@types/node": "12",
+    "@types/node": "16",
+    "axios": "^1.5.1",
+    "exponential-backoff": "^3.1.1",
     "express": "^4.17.1",
     "typescript": "^4.1.3"
   },
