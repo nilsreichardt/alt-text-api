@@ -36,3 +36,25 @@ npm run build
 You can preview the production build with `npm run preview`.
 
 > To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+
+## Init Firebase
+
+```js
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyC4Zkr_lET3rMgxJFMMpuCyiKe8JvPv7t8",
+  authDomain: "alt-text-api.firebaseapp.com",
+  projectId: "alt-text-api",
+  storageBucket: "alt-text-api.appspot.com",
+  messagingSenderId: "808369449824",
+  appId: "1:808369449824:web:2a306c4dd57f029dadcc05"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+```
