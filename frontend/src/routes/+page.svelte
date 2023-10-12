@@ -39,13 +39,16 @@
 	<!-- Selection View -->
 	<textarea rows="4" cols="50" placeholder="Enter the context here" bind:value={contextPrompt} />
 
-	<input type="file" bind:files accept="image/png, image/jpeg" on:change={upload} />
+	<label for="file-input">Choose a file</label>
+	<input id="file-input" type="file" bind:files accept="image/png, image/jpeg" on:change={upload} />
 {/if}
 
 <style>
 	input {
 		width: 100px;
 		height: 50px;
+		border-radius: 10px;
+		padding: 0.4rem;
 	}
 
 	textarea {
@@ -57,5 +60,26 @@
 		border-radius: 10px;
 		padding: 0.4rem;
 		margin-top: 1rem;
+	}
+
+	input[type='file'] {
+		display: none;
+	}
+
+	label {
+		display: inline-block;
+		background-color: #007bff;
+		color: #fff;
+		padding: 0.5rem 1rem;
+		border-radius: 0.25rem;
+		cursor: pointer;
+	}
+
+	label:hover {
+		background-color: #0069d9;
+	}
+
+	label:active {
+		background-color: #0056b3;
 	}
 </style>
