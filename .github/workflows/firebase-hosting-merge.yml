@@ -22,6 +22,7 @@ jobs:
         env:
           DEPLOY_KEY: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_ALT_TEXT_API }}
         run: |
+          npm install -g firebase-tools
           echo $DEPLOY_KEY > key.json
           export GOOGLE_APPLICATION_CREDENTIALS=key.json
           firebase deploy -m "Deploying from GitHub Actions; Commit: ${{ github.sha }}"
