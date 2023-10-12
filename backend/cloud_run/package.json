@@ -1,0 +1,63 @@
+{
+  "name": "cloud-run-typescript-template",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Template for typescript projects on Google Cloud Run",
+  "author": "Sentry.io",
+  "license": "BSL",
+  "repository": "https://github.com/getsentry/cloud-run-typescript-template.git",
+  "homepage": "https://github.com/getsentry/cloud-run-typescript-template",
+  "bugs": "https://github.com/getsentry/cloud-run-typescript-template/issues",
+  "main": "lib/index",
+  "keywords": [
+    "sentry",
+    "cloud run",
+    "typescript",
+    "google cloud run",
+    "google cloud provider"
+  ],
+  "scripts": {
+    "build": "yarn tsc",
+    "deploy": "yarn build && (yarn deploy:app)",
+    "deploy:app": "./bin/deploy.sh",
+    "dev": "yarn build --watch & NODE_ENV=development nodemon --exec \"yarn start\"",
+    "start": "node ./lib/index.js",
+    "lint": "yarn eslint src/**/*.ts test/**/*.test.js --fix",
+    "test": "yarn eslint src/**/*.ts test/**/*.test.ts && yarn jest",
+    "test:watch": "NODE_ENV=development yarn jest --watch --notify --notifyMode=change --coverage"
+  },
+  "dependencies": {
+    "@sentry/integrations": "^5.15.5",
+    "@sentry/node": "^5.12.3",
+    "@types/node": "12",
+    "express": "^4.17.1",
+    "typescript": "^4.1.3"
+  },
+  "devDependencies": {
+    "@types/jest": "^26.0.20",
+    "@typescript-eslint/eslint-plugin": "^4.12.0",
+    "@typescript-eslint/parser": "^4.12.0",
+    "eslint": "^7.17.0",
+    "eslint-config-prettier": "^7.1.0",
+    "eslint-plugin-prettier": "^3.1.2",
+    "eslint-plugin-typescript": "^0.14.0",
+    "husky": ">=4",
+    "jest": "26",
+    "jest-circus": "^26.0.1",
+    "lint-staged": ">=10",
+    "nodemon": "^2.0.0",
+    "prettier": "^2.2.1",
+    "ts-jest": "^26.0.0"
+  },
+  "engines": {
+    "node": ">= 12.0.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.ts": "eslint --cache --fix"
+  }
+}
