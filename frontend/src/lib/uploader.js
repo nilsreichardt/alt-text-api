@@ -5,7 +5,7 @@ import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 export function getAltTextForImage(file, contextPrompt) {
 	return new Promise(async (resolve, reject) => {
 		const imageByteArray = await getByteArrayOfImage(file);
-
+		console.log('imageByteArray', imageByteArray);
 		const downloadURL = await uploadToFirebase(imageByteArray, file.name);
 
 		const altText = await getAltTextFromDownloadURL(downloadURL, contextPrompt);
@@ -16,14 +16,19 @@ export function getAltTextForImage(file, contextPrompt) {
 
 async function getByteArrayOfImage(file) {
 	// Get first element of files and read bytearray from it
+	console.log('Got file: ', file);
 	const reader = new FileReader();
 	reader.readAsArrayBuffer(file);
+	let byteArray = undefined;
 	reader.onload = async function () {
 		console.log('Load');
-		const byteArray = new Uint8Array(reader.result);
+		byteArray = new Uint8Array(reader.result);
 		console.log('Got byteArray of image: ', byteArray);
-		return byteArray;
 	};
+	while (!reader.result) {
+		await new Promise((resolve) => setTimeout(resolve, 10));
+	}
+	return byteArray;
 }
 
 async function uploadToFirebase(byteArray, filename) {
@@ -42,7 +47,7 @@ async function uploadToFirebase(byteArray, filename) {
 	// Initialize Firebase
 	const app = initializeApp(firebaseConfig);
 
-	const fileRef = ref(getStorage(app), 'images/' + filename);
+	const fileRef = ref(getStorage(app), filename);
 	await uploadBytes(fileRef, byteArray).then((snapshot) => {
 		console.log('Uploaded the image!', snapshot);
 	});
