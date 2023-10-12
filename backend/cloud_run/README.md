@@ -19,5 +19,5 @@ You'll need to setup a GCP project that has access to Google Cloud Run. You shou
 You'll also need to create a private key for the service account (it should download a JSON file). You'll want to run `base64 <path/to/json>` and set it as the `GOOGLE_APPLICATION_CREDENTIALS` secret in GitHub.
 
 ```
-export GOOGLE_APPLICATION_CREDENTIALS="$(cat ../../key_store/alt-text-api-key.json)"
+export GOOGLE_APPLICATION_CREDENTIALS="../../key_store/alt-text-api-key.json"
 ```

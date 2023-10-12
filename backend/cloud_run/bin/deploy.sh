@@ -5,6 +5,7 @@ IMAGE=gcr.io/${PROJECT}/alt-text-api
 
 env_vars="ENV=production,"
 env_vars="${env_vars}VERSION=${VERSION},"
+env_vars="${env_vars}OPENAI_KEY=${OPENAI_KEY}"
 
 gcloud builds submit --tag $IMAGE --project=$PROJECT --gcs-log-dir=gs://${PROJECT}_cloudbuild/logs &&
   gcloud run deploy alt-text-api \
