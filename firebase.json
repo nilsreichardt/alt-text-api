@@ -1,0 +1,26 @@
+{
+  "hosting": [
+    {
+      "site": "alt-text-api",
+      "public": "frontend",
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ],
+      "rewrites": [
+        {
+          "source": "/v0/image-to-alt-text",
+          "run": {
+            "serviceId": "alt-text-api",
+            "region": "europe-west1"
+          }
+        },
+        {
+          "source": "**",
+          "destination": "/index.html"
+        }
+      ]
+    }
+  ]
+}
