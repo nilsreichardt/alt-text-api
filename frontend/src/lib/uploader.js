@@ -15,21 +15,24 @@ export function getAltTextForImage(file, contextPrompt) {
 }
 
 async function getByteArrayOfImage(file) {
-	// Get first element of files and read bytearray from it
 	console.log('Got file: ', file);
-	const reader = new FileReader();
-	reader.readAsArrayBuffer(file);
-	let byteArray = undefined;
-	reader.onload = async function () {
-		console.log('Load');
-		byteArray = new Uint8Array(reader.result);
-		console.log('Got byteArray of image: ', byteArray);
-	};
-	while (!reader.result) {
-		await new Promise((resolve) => setTimeout(resolve, 10));
-	}
-	return byteArray;
+	return readAsByteArray(file);
 }
+
+async function readAsByteArray(file) {
+	return new Promise((resolve, reject) => {
+	  const reader = new FileReader();
+	  reader.onload = function () {
+		const byteArray = new Uint8Array(reader.result);
+		resolve(byteArray);
+	  };
+	  reader.onerror = function () {
+		reject(reader.error);
+	  };
+	  reader.readAsArrayBuffer(file);
+	});
+  }
+  
 
 async function uploadToFirebase(byteArray, filename) {
 	// Import the functions you need from the SDKs you need
