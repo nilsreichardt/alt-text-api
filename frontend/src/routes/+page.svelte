@@ -1,69 +1,43 @@
 <script>
-	import { initializeApp } from 'firebase/app';
-	import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+	import { getAltTextForImage } from '$lib/uploader';
+	import LoadingSpinner from './LoadingSpinner.svelte';
 	let files;
-	let contextField = '';
+	let contextPrompt = '';
+	let promise;
 
-	async function uploadImage() {
-		console.log(files);
-		// const file = data.get('file');
-		// const result = await file;
-		// console.log('Read the file:', result);
-		// const readFile = new Uint8Array(await file.arrayBuffer());
-		// console.log('Read the file:', readFile);
-
-		// Get first element of files and read bytearray from it
-		const file = files[0];
-		const reader = new FileReader();
-		reader.readAsArrayBuffer(file);
-		reader.onload = async function () {
-			console.log('Load');
-			const byteArray = new Uint8Array(reader.result);
-			console.log(byteArray);
-			await uploadToServer(byteArray);
-			// send byteArray to server for processing
-		};
-	}
-
-	async function uploadToServer(byteArray) {
-		// Import the functions you need from the SDKs you need
-
-		// Your web app's Firebase configuration
-		const firebaseConfig = {
-			apiKey: 'AIzaSyC4Zkr_lET3rMgxJFMMpuCyiKe8JvPv7t8',
-			authDomain: 'alt-text-api.firebaseapp.com',
-			projectId: 'alt-text-api',
-			storageBucket: 'alt-text-api.appspot.com',
-			messagingSenderId: '808369449824',
-			appId: '1:808369449824:web:2a306c4dd57f029dadcc05'
-		};
-
-		// Initialize Firebase
-		const app = initializeApp(firebaseConfig);
-
-		const fileRef = ref(getStorage(app), 'images/' + files[0].name);
-		await uploadBytes(fileRef, byteArray).then((snapshot) => {
-			console.log('Uploaded a blob or file!', snapshot);
-		});
-
-		const downloadURL = await getDownloadURL(fileRef);
-		console.log('downloadURL', downloadURL);
-		const encodedUrl = encodeURI(downloadURL);
-
-		const res = await fetch(
-			`https://AltTextAPI.com/v0/image-to-alt-text?imageUrl=${encodedUrl}&contextPrompt=${encodeURI(
-				contextField
-			)}`
-		);
-		console.log('result', await res.json());
+	async function upload() {
+		promise = getAltTextForImage(files[0], contextPrompt);
 	}
 </script>
 
-<h1>Welcome to SvelteKit</h1>
+<h1>Get alt text from image with context</h1>
 
-<textarea rows="4" cols="50" placeholder="Enter the context here" bind:value={contextField} />
+{#if promise}
+	{#await promise}
+		<!-- promise is pending -->
+		<p>Waiting for the alt text to be generated...</p>
+		<LoadingSpinner />
+	{:then value}
+		<!-- promise was fulfilled -->
+		<p>{value['alt-text']}</p>
+		<button on:click={() => (promise = undefined)}>Generate a new one</button>
+	{:catch error}
+		<!-- promise was rejected -->
+		<p style="color: red">{error.message}</p>
+		<button
+			on:click={() => {
+				promise = undefined;
+				contextPrompt = '';
+			}}
+		>
+			Generate a new one</button
+		>
+	{/await}
+{:else}
+	<textarea rows="4" cols="50" placeholder="Enter the context here" bind:value={contextPrompt} />
 
-<input type="file" bind:files accept="image/png, image/jpeg" on:change={uploadImage} />
+	<input type="file" bind:files accept="image/png, image/jpeg" on:change={upload} />
+{/if}
 
 <style>
 	input {
