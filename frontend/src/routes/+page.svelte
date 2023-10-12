@@ -45,13 +45,14 @@
 
 <style>
 	input {
-		width: 100px;
+		max-width: 100px;
 		height: 50px;
 		border-radius: 10px;
 		padding: 0.4rem;
 	}
 
 	textarea {
+		max-width: 100%;
 		border-radius: 10px;
 		padding: 0.4rem;
 	}

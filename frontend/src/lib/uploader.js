@@ -5,7 +5,7 @@ import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 export function getAltTextForImage(file, contextPrompt) {
 	return new Promise(async (resolve, reject) => {
 		const imageByteArray = await getByteArrayOfImage(file);
-		console.log('imageByteArray', imageByteArray);
+
 		const downloadURL = await uploadToFirebase(imageByteArray, file.name);
 
 		const altText = await getAltTextFromDownloadURL(downloadURL, contextPrompt);

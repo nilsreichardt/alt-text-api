@@ -1,0 +1,47 @@
+@import '@fontsource/nunito/200-italic.css';
+@import '@fontsource/nunito/300-italic.css';
+@import '@fontsource/nunito/400-italic.css';
+@import '@fontsource/nunito/500-italic.css';
+@import '@fontsource/nunito/600-italic.css';
+@import '@fontsource/nunito/700-italic.css';
+@import '@fontsource/nunito/800-italic.css';
+@import '@fontsource/nunito/900-italic.css';
+@import '@fontsource/nunito/200.css';
+@import '@fontsource/nunito/300.css';
+@import '@fontsource/nunito/400.css';
+@import '@fontsource/nunito/500.css';
+@import '@fontsource/nunito/600.css';
+@import '@fontsource/nunito/700.css';
+@import '@fontsource/nunito/800.css';
+@import '@fontsource/nunito/900.css';
+
+:root {
+	font-family: 'Nunito', system-ui, BlinkMacSystemFont, -apple-system, sans-serif;
+	--font-mono: 'Fira Mono', monospace;
+	/* Dark Theme */
+	--background-color: #222326; /* Background of the main content */
+	--nav-background-color: #1b1d21; /* Background of the Nav Bar */
+	--surface-color: #121212; /* # 1B1D21 Surface for elements on each page*/
+	--primary-color: #35a8e0; /* Primary interaction color, #007096 is also great */  
+	--primary-rgb-color: 53, 168, 224; /* Primary interaction color */
+	--secondary-color: #546e7a; /* Secondary interaction color */
+	--error-color: #cf6679; /* Errors */
+
+	--heading-color: rgba(255, 255, 255, 0.6);
+	--text-color: rgba(255, 255, 255, 0.83);
+	--heading-surface-color: rgba(255, 255, 255, 0.5);
+	--disabled-text-color: rgba(255, 255, 255, 0.38);
+}
+
+body {
+    max-width: 800px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem;
+    background-color: #225a78;
+    color: white;
+    justify-content: space-between;
+    min-height: 300px;
+}
