@@ -1,5 +1,7 @@
 # AltTextAPI
 
+This project started at the Open Source Night at CHECK24. We only had ~2 hours to build a first proof of concept. The proof of concept already works. But the quality isn't ready for production. Until this is fixed, this project is still in progress.
+
 With "AltTextAPI" you can get the alt text of an image. Just call the API (https://alttextapi.com/v0/image-to-alt-text) with the image URL and you will get the alt text as a response.
 
 ```sh
